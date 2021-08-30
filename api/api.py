@@ -1,7 +1,8 @@
 from flask import Flask 
+from flask import render_template
 
 api = Flask(__name__)
 
 @api.route("/")
-def hello_to_gamenight():
-    return"<p>Hello to Chingu gamenight</p>"
+def start_page():
+    return render_template('layout.html')
