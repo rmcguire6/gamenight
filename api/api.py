@@ -5,4 +5,5 @@ api = Flask(__name__)
 
 @api.route("/")
 def start_page():
-    return render_template('layout.html')
+    page={'pagetitle': 'the entrance to the dungeons of Markenburg', 'pagetext':'You must choose what you will do.', 'choice_one': 'Stay here', 'choice_two': 'Go forward'}
+    return render_template('startpage.html', page=page)
