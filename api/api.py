@@ -1,9 +1,9 @@
-from flask import Flask 
+from flask import Flask
 from flask import render_template
 
 api = Flask(__name__)
 
 @api.route("/")
 def start_page():
-    page={'pagetitle': 'the entrance to the dungeons of Markenburg', 'pagetext':'You must choose what you will do.', 'choice_one': 'Stay here', 'choice_two': 'Go forward'}
-    return render_template('startpage.html', page=page)
+    page={'title': 'The Fissure of Markenburg', 'text':'You must choose what you will do.', 'choice_one': 'Go to the left', 'choice_two': 'Go forward', 'choice_three': 'Go to the right'}
+    return render_template('page.html', page=page)
