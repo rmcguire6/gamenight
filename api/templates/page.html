@@ -2,7 +2,7 @@
 <p>{{room.title}}</p>
 <p>{{room.text}}</p>
 <p>{{game_message}}</p>
-<button>{{room.choice_one}}</button>
-<button>{{room.choice_two}}</button>
-<button>{{room.choice_three}}</button>
+<a href="/room/{{room.left}}" class="button">Go left</a>
+<a href="/room/{{room.forward}}" class="button">Go forward</a>
+<a href="/room/{{room.right}}" class="button">Go right</a>
 {% endblock %}
