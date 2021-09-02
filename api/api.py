@@ -15,7 +15,7 @@ rooms=[{'title': 'The Perils of Markenburg','text': 'You stand at the opening of
 def start_page():
     room=rooms[0]
     game_message='Please start'
-    return render_template('page.html', room=room, game_message=game_message)
+    return render_template('homepage.html', room=room, game_message=game_message)
 
 @api.route("/room/<int:room_id>")
 def build_room(room_id):
