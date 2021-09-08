@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template
+from flask import render_template, request
 from flask_sqlalchemy import SQLAlchemy
 import random
 
@@ -15,22 +15,6 @@ rooms=[{'title': 'The Perils of Markenburg','text': 'You stand at the opening of
 {'title': 'The Mountain of Markenburg','text': 'You stand  in the mountains of Markenburg. You must choose what you will do.', 'room_id': 4,'left': 5, 'forward': 2, 'right': 4, 'monsters':['giant', 'dragon','werewolf', 'troll']},
 {'title': 'The River of Markenburg','text': 'You stand at the river of Markenburg. You must choose what you will do.', 'room_id': 5,'left': 3, 'forward': 2, 'right':  1,'monsters':['giant carp', 'mermaid', 'giant stinging eel', 'river nymph']}]
 
-
-@api.route("/")
-def start_page():
-    room=rooms[0]
-    game_message='Please start'
-    return render_template('homepage.html', room=room, game_message=game_message)
-
-@api.route("/room/<int:room_id>")
-def build_room(room_id):
-    room=rooms[room_id]
-    random_monster_number = random.randint(0,3)
-    monster = rooms[room_id]['monsters'][random_monster_number]
-    game_message='Watch out for the ' + monster + '!'
-    return render_template('page.html', room=room, game_message=game_message)
-
-
 class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     points = db.Column(db.Integer, default=0)
@@ -38,3 +22,39 @@ class Game(db.Model):
 
     def __repr__(self):
         return '<Game %r>' % self.id
+
+
+@api.before_first_request
+def create_tables():
+    db.create_all()
+    
+@api.route("/")
+def start_page():
+    room=rooms[0]
+    game = Game(points=0, place=0)
+    db.session.add(game)
+    db.session.commit()
+    global game_id
+    game_id = game.id
+    print('game id is ', game_id)
+    game_message='In this game you get to choose what you do. Pick a choice and meet adventures. But beware, the wrong choice might end you up dead.'
+    return render_template('homepage.html', room=room, game_message=game_message)
+
+@api.route("/room/<int:room_id>/")
+def build_room(room_id):
+    room=rooms[room_id]
+    random_monster_number = random.randint(0,3)
+    monster = rooms[room_id]['monsters'][random_monster_number]
+    game_message='Watch out for the ' + monster + '!'
+    global game_id
+    game = Game.query.filter_by(id = game_id).first()
+    game.place = room_id
+    game.points = game.points + 1
+    db.session.add(game)
+    db.session.commit()
+    print('points ', game.points)
+    if (monster =='dragon' or monster =='troll'):
+        game_message = 'You lose the game. The ' + monster + ' ate you.'
+    if (game.points > 4):
+        game_message = 'Congratulations. You have won the game.'
+    return render_template('page.html', room=room, game_message=game_message)
