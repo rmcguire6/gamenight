@@ -33,7 +33,7 @@ Pages:
 - [ ] Each page needs to give the user at least two choices.
 - [ ] User must be able to win or lose.
 - [ ] Routing between pages must be done in the back end
-- [ ] User must be able to save the adventure at any page and be able to resume there when they reload the game with the same game state.
+- [ ] You must implement at least a GET and POST request.
 
 ## Suggestions
 
