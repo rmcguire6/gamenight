@@ -62,8 +62,10 @@ def build_room(room_id):
     print('monster', monster_points, 'player', game.points)
     if game.points < monster_points:
             game_message = 'You lose the game. The ' + monster + ' ate you.'
+            return render_template('game.html', game_message=game_message)
     elif game.points > 8:
             game_message = 'Congratulations. You have won the game.'
+            return render_template('game.html', game_message=game_message)
     else:
         random_monster_number = random.randint(0,3)
         monster = rooms[room_id]['monsters'][random_monster_number]
