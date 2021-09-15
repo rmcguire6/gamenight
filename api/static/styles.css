@@ -2,3 +2,7 @@
   text-align: center;
   flex-direction: column;
 }
+.form {
+  font-weight: 400;
+  margin: 0 0.75em;
+}

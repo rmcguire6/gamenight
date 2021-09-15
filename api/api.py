@@ -40,7 +40,7 @@ def start_page():
     game_message='In this game you get to choose what you do. Pick a choice and meet adventures. But beware, the wrong choice might end you up dead.'
     return render_template('homepage.html', room=room, game_message=game_message)
 
-@api.route("/room/<int:room_id>/")
+@api.route("/room/<int:room_id>/", methods=['GET', 'POST'])
 def build_room(room_id):
     room=rooms[room_id]
     random_monster_number = random.randint(0,3)
@@ -53,8 +53,19 @@ def build_room(room_id):
     db.session.add(game)
     db.session.commit()
     print('points ', game.points)
-    if (monster =='dragon' or monster =='troll'):
-        game_message = 'You lose the game. The ' + monster + ' ate you.'
-    if (game.points > 4):
-        game_message = 'Congratulations. You have won the game.'
-    return render_template('page.html', room=room, game_message=game_message)
+    monster_points = random.randint(0,game.points + 1)
+    if request.method == 'POST':
+        fight = request.form.get('fight')
+        print('fight', fight)
+        if fight == 'Yes':
+            game.points = game.points + 1
+    print('monster', monster_points, 'player', game.points)
+    if game.points < monster_points:
+            game_message = 'You lose the game. The ' + monster + ' ate you.'
+    elif game.points > 8:
+            game_message = 'Congratulations. You have won the game.'
+    else:
+        random_monster_number = random.randint(0,3)
+        monster = rooms[room_id]['monsters'][random_monster_number]
+        game_message='Watch out for the ' + monster + '!'
+    return render_template('page.html', room=room, game_message=game_message, monster=monster)
