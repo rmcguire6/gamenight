@@ -24,13 +24,13 @@ Pages:
 
 - A home page, or start screen
 - A minimum of 5 different places, other than the start screen, that the user can navigate to.
-- At least 3 separate ways through the adventure from the home page to at least two different endings.
 - Every page must be responsive and fit on a mobile sized screen as as well as a desktop.
 
 # User Stories
 
 - [ ] On loading the user sees a homepage/start screen which gives the directions for navigating and an introduction to the adventure.
 - [ ] Each page needs to give the user at least two choices.
+- [ ] At least 3 separate ways through the adventure from the home page to at least two different endings.
 - [ ] User must be able to win or lose.
 - [ ] Routing between pages must be done in the back end
 - [ ] You must implement at least a GET and POST request.
