@@ -1,8 +1,10 @@
 {% extends "layout.html" %} {% block content %}
-<p>{{room.title}}</p>
+<h2>{{room.title}}</h2>
 <p>{{room.text}}</p>
 <p>{{game_message}}</p>
-<a href="/room/{{room.left}}"><button>Go left</button></a>
-<a href="/room/{{room.forward}}"><button>Go forward</button></a>
-<a href="/room/{{room.right}}"><button>Go right</button></a>
+<div class="button-group">
+<a href="/room/{{room.left}}"><button class="button burnt-edge-sm ">Go left</button></a>
+<a href="/room/{{room.forward}}"><button class="button burnt-edge-sm">Go forward</button></a>
+<a href="/room/{{room.right}}"><button class="button burnt-edge-sm">Go right</button></a>
+</div>
 {% endblock %}

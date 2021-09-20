@@ -6,13 +6,18 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='styles.css') }}"
     />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Courgette&display=swap");
+    </style>
     <link rel="icon" href="{{url_for('static', filename='favicon.ico')}}" />
     <title>{% block title %}{% endblock %}Chingu Game Night</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     {% endblock %}
   </head>
-  <body class="container">
-    <h2>Choose Your Own Adventure</h2>
-    <div>{% block content %} {% endblock %}</div>
+  <body>
+    <div class="container">
+      <h1>Choose Your Own Adventure</h1>
+      <div>{% block content %} {% endblock %}</div>
+    </div>
   </body>
 </html>
